@@ -1,9 +1,26 @@
-<script setup>
+<script setup lang="ts">
 import {useFavoritesStore} from "~/stores/useFavoritesStore";
+import {useCartStore} from "~/stores/useCartStore";
+import type {Product} from "~/type";
+import {useProductsStore} from "~/stores/useProductsStore";
+const router = useRouter();
 
+const productsStore = useProductsStore();
+// await useAsyncData("products", () => productsStore.getProducts());
+const products = computed(() => productsStore.products);
+
+const cartStore = useCartStore();
 const favoritesStore = useFavoritesStore();
 
-const isFavorite = product => {
+const handleAddToCart = (product: Product) => {
+  cartStore.addToCart(product, 1);
+};
+
+const handleAddToFavorites = (product: Product) => {
+  favoritesStore.addToFavorites(product);
+};
+
+const isFavorite = (product: Product) => {
   return favoritesStore.isFavorite(product);
 };
 
@@ -12,14 +29,14 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  handleAddToFavorites: {
-    type: Function,
-    required: true,
-  },
-  handleAddToCart: {
-    type: Function,
-    required: true,
-  },
+  // handleAddToFavorites: {
+  //   type: Function,
+  //   required: true,
+  // },
+  // handleAddToCart: {
+  //   type: Function,
+  //   required: true,
+  // },
 });
 </script>
 
@@ -27,7 +44,7 @@ const props = defineProps({
   <div class="w-48 h-64 md:w-48 md:h-72 flex flex-col rounded-xl shadow-md relative overflow-hidden">
     <div class="absolute top-5 right-5 z-10 bg-gray-200 rounded-full grid place-items-center p-2">
       <icon v-if="isFavorite(props.product)" @click="handleAddToFavorites(props.product)" name="tabler:heart-filled" :color="isFavorite(props.product) ? '#d8556f' : 'black'" class="h-4 w-4" />
-      <icon v-else @click="handleAddToFavorites(props.product)" name="tabler:heart" class="h-4 w-4" />
+      <icon v-else @click="handleAddToFavorites(product)" name="tabler:heart" class="h-4 w-4" />
     </div>
     <NuxtLink :to="/product/ + props.product.id" class="p-14 w-48 h-48 bg-white overflow-hidden relative">
       <img class="hover:scale-125 transition-all ease-in-out duration-300" :src="props.product.image" />
@@ -43,7 +60,7 @@ const props = defineProps({
 
       <div class="flex justify-between">
         <p class="whitespace-nowrap font-bold">$ {{ props.product.price }}</p>
-        <button @click="handleAddToCart(props.product)" class="px-2 py-2 border border-slate-800 rounded-lg grid place-items-center">
+        <button @click="handleAddToCart(product)" class="px-2 py-2 border border-slate-800 rounded-lg grid place-items-center">
           <icon name="tabler:shopping-cart-plus" class="h-4 w-4" />
         </button>
       </div>

@@ -18,13 +18,20 @@ onMounted(async () => {
 
 const subQty = cartStore.subQty;
 const addQty = cartStore.addQty;
+
+const handleRemoveAll = cartStore.removeAll;
 </script>
 
 <template>
   <h1 class="text-3xl font-bold">Cart</h1>
   <div class="flex justify-between">
-    <div class="bg-gray-200 p-5 rounded-xl flex flex-col gap-4">
-      <div v-for="product in cartStore.cart" :key="product.id">
+    <div class="bg-gray-200 min-w-[40%] p-5 rounded-xl flex flex-col gap-4">
+      <div>
+        <button @click="handleRemoveAll" class="top-2 right-2 w-8 h-8 rounded-full hover:bg-slate-300 grid place-items-center">
+          <Icon name="tabler:x" color="black" />
+        </button>
+      </div>
+      <div v-if="cart.length > 0" v-for="product in cartStore.cart" :key="product.id">
         <div class="flex justify-between">
           <div class="flex gap-2">
             <div class="w-24 h-24 p-7 overflow-hidden bg-white border rounded-lg flex justify-center items-center">
@@ -43,6 +50,14 @@ const addQty = cartStore.addQty;
             </div>
           </div>
         </div>
+      </div>
+      <div v-else class="flex flex-col gap-5 h-full w-full justify-center items-center">
+        <div>
+          <h1 class="text-xl">Your cart is empty</h1>
+          <p>Want something? Add it to your cart now!</p>
+        </div>
+
+        <NuxtLink to="/" class="bg-blue-700 text-white p-3 rounded-lg">Start Shopping</NuxtLink>
       </div>
     </div>
     <div class="bg-gray-200 w-[40%] rounded-xl p-5 flex flex-col justify-between">

@@ -4,5 +4,6 @@
     <div class="mt-16">
       <slot />
     </div>
+    <AppFooter />
   </div>
 </template>

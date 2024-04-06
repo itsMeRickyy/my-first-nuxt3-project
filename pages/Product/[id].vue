@@ -67,13 +67,30 @@ const subQty = () => {
   }
 };
 
+const isUserLoggedIn = localStorage.getItem("token");
+const loginStatus = ref(false);
+
 const handleAddToCart = (product: Product) => {
-  cartStore.addToCart(product, qty.value);
-  console.log(product, qty.value);
+  if (!isUserLoggedIn) {
+    loginStatus.value = true;
+    return;
+  } else {
+    cartStore.addToCart(product, qty.value);
+  }
 };
 
+// const handleAddToCart = (product: Product) => {
+//   cartStore.addToCart(product, qty.value);
+//   console.log(product, qty.value);
+// };
+
 const handleAddToFavorites = (product: Product) => {
-  favoritesStore.addToFavorites(product);
+  if (!isUserLoggedIn) {
+    loginStatus.value = true;
+    return;
+  } else {
+    favoritesStore.addToFavorites(product);
+  }
 };
 
 const isFavorite = (product: Product) => {
@@ -83,9 +100,20 @@ const isFavorite = (product: Product) => {
 const toggleReadMore = () => {
   readMore.value = !readMore.value;
 };
+
+const setLogin = ref(false);
+
+const toggleModalLogin = () => {
+  loginStatus.value = !loginStatus.value;
+};
 </script>
 
 <template>
+  <div v-if="loginStatus" class="bg-gray-600 bg-opacity-50 right-0 left-0 top-0 bottom-0 grid place-items-center absolute">
+    <div>
+      <ModalAuth :toggleModalLogin="toggleModalLogin" />
+    </div>
+  </div>
   <div v-if="product" class="flex pt-10 h-screen">
     <div class="flex flex-col gap-10 w-[50%]">
       <div class="w-[28rem] h-[28rem] p-32 overflow-hidden bg-white rounded-lg shadow-xl flex items-center">

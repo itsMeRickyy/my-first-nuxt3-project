@@ -30,7 +30,7 @@ const slides = ref(
 </script>
 
 <template>
-  <div class="bg-white">
+  <div class="bg-white my-4 overflow-hidden rounded-xl">
     <Swiper
       :ref="swiperRef"
       :height="300"
@@ -56,17 +56,15 @@ const slides = ref(
         {{ idx }}
       </SwiperSlide> -->
       <SwiperSlide>
-        <div class="w-full h-full grid place-items-center rounded-lg overflow-hidden">
+        <div class="w-full h-full grid place-items-center rounded-xl overflow-hidden">
           <img src="/assets/images/banner1.jpg" alt="" />
         </div>
       </SwiperSlide>
       <SwiperSlide>
-        <div class="w-full h-full grid place-items-center rounded-lg overflow-hidden">
+        <div class="w-full h-full grid place-items-center rounded-xl overflow-hidden">
           <img src="/assets/images/banner2.jpg" alt="" />
         </div>
       </SwiperSlide>
-      <button @click="next()">Next</button>
-      <button @click="prev()">Previous</button>
     </Swiper>
   </div>
 </template>
