@@ -39,7 +39,7 @@ const handleSearch = () => {
         <nuxtLink to="/cart" class="text-xl bg-gray-200 hover:bg-gray-300 rounded-lg p-2 grid place-items-center">
           <Icon name="tabler:shopping-cart" color="black" />
         </nuxtLink>
-        <div class="absolute lg:group-hover:flex hidden items-start p-2 top-9 -left-52">
+        <div class="absolute hidden items-start p-2 top-9 -left-52">
           <div class="bg-gray-200 w-[22rem] p-2 flex-col gap-3 rounded-xl">
             <ModalCart />
           </div>

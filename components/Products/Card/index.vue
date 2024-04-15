@@ -60,9 +60,9 @@ const props = defineProps({
 
       <div class="flex justify-between">
         <p class="whitespace-nowrap font-bold">$ {{ props.product.price }}</p>
-        <button @click="handleAddToCart(product)" class="px-2 py-2 border border-slate-800 rounded-lg grid place-items-center">
+        <!-- <button @click="handleAddToCart(product)" class="px-2 py-2 border border-slate-800 rounded-lg grid place-items-center">
           <icon name="tabler:shopping-cart-plus" class="h-4 w-4" />
-        </button>
+        </button> -->
       </div>
     </div>
   </div>

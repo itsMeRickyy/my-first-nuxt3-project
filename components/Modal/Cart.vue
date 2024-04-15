@@ -1,10 +1,18 @@
 <script setup>
 import {useCartStore} from "~/stores/useCartStore";
-const cartStore = useCartStore();
+import {getUsername} from "../../services/auth.service";
+// import {useLocalStorage} from "../../plugins/localStorage";
+
+// const cartStore = useCartStore();
+
+// const {getItem, setItem} = useLocalStorage();
+
+// const hasToken = ref(getItem("token"));
+// const username = ref(hasToken.value ? getUsername(getItem("token")) : "");
 </script>
 
 <template>
-  <div>
+  <div v-if="username">
     <div class="flex justify-between mb-2">
       <h1>Cart ({{ cartStore.cart.length }})</h1>
       <NuxtLink to="/cart">See</NuxtLink>
@@ -24,5 +32,8 @@ const cartStore = useCartStore();
         </div>
       </NuxtLink>
     </div>
+  </div>
+  <div v-else>
+    <h1>You are not logged in</h1>
   </div>
 </template>
