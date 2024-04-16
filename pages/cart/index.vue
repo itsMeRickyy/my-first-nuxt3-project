@@ -38,12 +38,12 @@ const username = hasToken ? getUsername(localStorage.getItem("token")) : "";
       </div>
       <div v-if="cart.length > 0" v-for="product in cartStore.cart" :key="product.id">
         <div class="flex justify-between">
-          <div class="flex gap-2">
+          <NuxtLink :to="/product/ + product.id" class="flex gap-2">
             <div class="w-24 h-24 p-7 overflow-hidden bg-white border rounded-lg flex justify-center items-center">
               <img :src="product.image" alt="" />
             </div>
             <h1 class="mt-3">{{ product.title.substring(0, 30) }}</h1>
-          </div>
+          </NuxtLink>
           <div>
             <div class="flex flex-col items-end justify-between h-full">
               <p class="text-lg font-bold">${{ product.price }}</p>

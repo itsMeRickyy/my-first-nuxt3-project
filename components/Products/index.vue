@@ -16,10 +16,10 @@ const navigateToCategory: (newCategory: string) => void = newCategory => {
   <div class="w-full rounded-xl shadow-lg p-5">
     <!-- <h1 class="font-bold text-xl my-5">Category</h1> -->
     <div class="flex gap-5">
-      <button @click="navigateToCategory(category)" v-for="category in categories" :key="category" class="border p-2 rounded-xl text-sm">{{ category }}</button>
+      <button @click="navigateToCategory(category)" v-for="category in categories" :key="category" class="border p-2 rounded-xl text-sm whitespace-nowrap">{{ category }}</button>
     </div>
   </div>
-  <div class="flex flex-wrap gap-4 justify-between mt-10">
+  <div class="flex px-2 md:px-0 flex-wrap gap-4 justify-between mt-10">
     <div v-for="product in products" :key="product.id">
       <ProductsCard :product="product" />
     </div>

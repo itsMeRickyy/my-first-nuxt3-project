@@ -70,19 +70,17 @@ const subQty = () => {
 const isUserLoggedIn = localStorage.getItem("token");
 const loginStatus = ref(false);
 
+const toast = ref(false);
+
 const handleAddToCart = (product: Product) => {
   if (!isUserLoggedIn) {
     loginStatus.value = true;
     return;
   } else {
     cartStore.addToCart(product, qty.value);
+    toast.value = true;
   }
 };
-
-// const handleAddToCart = (product: Product) => {
-//   cartStore.addToCart(product, qty.value);
-//   console.log(product, qty.value);
-// };
 
 const handleAddToFavorites = (product: Product) => {
   if (!isUserLoggedIn) {
@@ -114,35 +112,55 @@ const toggleModalLogin = () => {
       <ModalAuth :toggleModalLogin="toggleModalLogin" />
     </div>
   </div>
-  <div v-if="product" class="flex pt-10 h-screen">
-    <div class="flex flex-col gap-10 w-[50%]">
-      <div class="w-[28rem] h-[28rem] p-32 overflow-hidden bg-white rounded-lg shadow-xl flex items-center">
+  <div v-if="product" class="flex flex-col items-center md:items-start md:flex-row pt-10 h-screen">
+    <div v-show="toast" class="absolute left-0 right-0 h-[70%] grid place-items-center p-20">
+      <div class="bg-gray-200 w-full h-full p-10 rounded-xl">
+        <div class="flex justify-between">
+          <h1 class="text-xl">Succed add to cart</h1>
+          <button @click="toast = false" class="bg-gray-400 w-8 h-8 grid place-items-center text-white p-2 rounded-full mb-3">
+            <Icon name="tabler:x" color="black" />
+          </button>
+        </div>
+        <div class="flex justify-between items-center bg-white px-5 rounded-xl">
+          <div class="flex items-center">
+            <div class="w-20 h-20 overflow-hidden bg-white p-5 grid place-items-center">
+              <img :src="product.image" alt="" />
+            </div>
+            <h1>{{ product.title }}</h1>
+          </div>
+          <NuxtLink to="/cart" class="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg">Go to cart</NuxtLink>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col items-center gap-10 w-[75%] md:w-[50%]">
+      <div class="w-[20rem] h-[20rem] p-20 lg:w-[28rem] lg:h-[28rem] lg:p-32 overflow-hidden bg-white rounded-lg shadow-xl flex items-center">
         <img class="hover:scale-125 transition-all ease-in-out duration-300" :src="product.image" alt="" />
       </div>
       <div class="flex h-36 gap-x-5">
-        <div class="w-24 h-24 overflow-hidden p-6 flex items-center bg-white rounded-lg shadow-xl">
+        <div class="w-16 h-16 md:w-24 md:h-24 p-4 overflow-hidden md:p-6 flex items-center bg-white rounded-lg shadow-xl">
           <img :src="product.image" alt="" />
         </div>
-        <div class="w-24 h-24 overflow-hidden p-6 flex items-center bg-white rounded-lg shadow-xl">
+        <div class="w-16 h-16 md:w-24 md:h-24 p-4 overflow-hidden md:p-6 flex items-center bg-white rounded-lg shadow-xl">
           <img :src="product.image" alt="" />
         </div>
-        <div class="w-24 h-24 overflow-hidden p-6 flex items-center bg-white rounded-lg shadow-xl">
+        <div class="w-16 h-16 md:w-24 md:h-24 p-4 overflow-hidden md:p-6 flex items-center bg-white rounded-lg shadow-xl">
           <img :src="product.image" alt="" />
         </div>
-        <div class="w-24 h-24 overflow-hidden p-6 flex items-center bg-white rounded-lg shadow-xl">
+        <div class="w-16 h-16 md:w-24 md:h-24 p-4 overflow-hidden md:p-6 flex items-center bg-white rounded-lg shadow-xl">
           <img :src="product.image" alt="" />
         </div>
       </div>
     </div>
-    <div class="flex flex-col w-[50%] px-10">
+    <div class="flex flex-col md:w-[50%] px-5 md:px-10">
       <div class="flex flex-col border-b pb-5">
-        <h1 class="text-3xl font-bold">{{ product.title }}</h1>
-
-        <p @click="toggleReadMore" class="cursor-default" v-if="!readMore">
-          {{ product.description ? (typeof product.description === "string" ? (product.description.length > 100 ? product.description.substring(0, 100) + "..." : product.description) : "") : "" }}
-        </p>
-        <p @click="toggleReadMore" class="cursor-default" v-if="readMore">{{ product.description }}</p>
-        <button class="text-slate-500 text-sm" @click="toggleReadMore">{{ readMore ? "See Less" : "See More" }}</button>
+        <h1 class="text-xl md:text-3xl font-bold">{{ product.title }}</h1>
+        <div class="hidden md:block">
+          <p @click="toggleReadMore" class="cursor-default" v-if="!readMore">
+            {{ product.description ? (typeof product.description === "string" ? (product.description.length > 100 ? product.description.substring(0, 100) + "..." : product.description) : "") : "" }}
+          </p>
+          <p @click="toggleReadMore" class="cursor-default" v-if="readMore">{{ product.description }}</p>
+          <button class="text-slate-500 text-sm" @click="toggleReadMore">{{ readMore ? "See Less" : "See More" }}</button>
+        </div>
         <div class="flex items-center gap-2">
           <icon name="tabler:star-filled" class="text-yellow-500 h-4 w-4" />
           <h1>{{ product.rating.rate }}({{ product.rating.count }})</h1>
@@ -167,6 +185,13 @@ const toggleModalLogin = () => {
           <button @click="handleAddToCart(product)" class="w-full bg-blue-700 text-white p-3 rounded-lg">+ Add to Cart</button>
           <button class="w-full border-2 border-blue-700 text-blue-700 p-3 rounded-lg">Buy Now</button>
         </div>
+      </div>
+      <div class="md:hidden">
+        <p @click="toggleReadMore" class="cursor-default" v-if="!readMore">
+          {{ product.description ? (typeof product.description === "string" ? (product.description.length > 100 ? product.description.substring(0, 100) + "..." : product.description) : "") : "" }}
+        </p>
+        <p @click="toggleReadMore" class="cursor-default" v-if="readMore">{{ product.description }}</p>
+        <button class="text-slate-500 text-sm" @click="toggleReadMore">{{ readMore ? "See Less" : "See More" }}</button>
       </div>
     </div>
   </div>
