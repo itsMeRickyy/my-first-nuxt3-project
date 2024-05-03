@@ -4,7 +4,10 @@ import type {Product} from "~/type";
 import {useCartStore} from "~/stores/useCartStore";
 import {useRoute} from "vue-router";
 import {ref, onMounted} from "vue";
-import {useFavoritesStore} from "#imports";
+import {useFavoritesStore} from "../../stores/useFavoritesStore";
+import {useAuth} from "../../stores/useAuth";
+
+const {isLoggedIn} = useAuth();
 
 const favoritesStore = useFavoritesStore();
 
@@ -67,7 +70,11 @@ const subQty = () => {
   }
 };
 
-const isUserLoggedIn = localStorage.getItem("token");
+// const isUserLoggedIn = localStorage.getItem("token");
+// if (process.client) {
+//   const isUserLoggedIn = localStorage.getItem("token");
+// }
+const isUserLoggedIn = typeof window !== "undefined" && typeof window.localStorage !== "undefined" ? localStorage.getItem("token") : null;
 const loginStatus = ref(false);
 
 const toast = ref(false);
@@ -107,12 +114,14 @@ const toggleModalLogin = () => {
 </script>
 
 <template>
-  <div v-if="loginStatus" class="bg-gray-600 bg-opacity-50 right-0 left-0 top-0 bottom-0 grid place-items-center absolute">
+  <div v-if="loginStatus" class="bg-gray-600 bg-opacity-50 right-0 left-0 min-h-screen grid place-items-center absolute">
     <div>
       <ModalAuth :toggleModalLogin="toggleModalLogin" />
+      <!-- <h1>You need to login first</h1>
+      <NuxtLink to="/user/settings">Login</NuxtLink> -->
     </div>
   </div>
-  <div v-if="product" class="flex flex-col items-center md:items-start md:flex-row pt-10 h-screen">
+  <div v-if="product" class="flex flex-col items-center md:items-start md:flex-row pt-10 mb-60 md:mb-0">
     <div v-show="toast" class="absolute left-0 right-0 h-[70%] grid place-items-center p-20">
       <div class="bg-gray-200 w-full h-full p-10 rounded-xl">
         <div class="flex justify-between">

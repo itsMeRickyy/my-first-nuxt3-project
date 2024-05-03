@@ -1,24 +1,20 @@
-<script setup>
+<script setup lang="ts">
 import {useCartStore} from "~/stores/useCartStore";
-import {getUsername} from "../../services/auth.service";
-// import {useLocalStorage} from "../../plugins/localStorage";
+const cartStore = useCartStore();
+import {useAuth} from "#imports";
+const authStore = useAuth();
 
-// const cartStore = useCartStore();
-
-// const {getItem, setItem} = useLocalStorage();
-
-// const hasToken = ref(getItem("token"));
-// const username = ref(hasToken.value ? getUsername(getItem("token")) : "");
+const isLoggedIn = authStore.isLoggedIn;
 </script>
 
 <template>
-  <div v-if="username">
+  <div v-if="isLoggedIn">
     <div class="flex justify-between mb-2">
       <h1>Cart ({{ cartStore.cart.length }})</h1>
       <NuxtLink to="/cart">See</NuxtLink>
     </div>
     <div class="flex flex-col gap-2">
-      <NuxtLink :to="/product/ + product.id" v-for="product in cartStore.cart" :key="product.id">
+      <NuxtLink :to="`/product/ ${product.id}`" v-for="product in cartStore.cart" :key="product.id">
         <div class="flex gap-2 justify-between text-sm">
           <div class="flex gap-2">
             <div class="w-14 h-14 p-4 bg-white flex justify-center items-center rounded-lg overflow-hidden">

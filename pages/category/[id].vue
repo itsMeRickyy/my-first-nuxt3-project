@@ -27,7 +27,7 @@ fetchProductByCategory();
 
 <template>
   <div>
-    <h1>Categoryyy {{ category }}</h1>
+    <!-- <h1 class="text-lg font-bold">{{ category }}</h1> -->
     <div class="flex flex-wrap gap-4 justify-between">
       <div v-for="product in products" :key="product.id">
         <ProductsCard :product="product" />

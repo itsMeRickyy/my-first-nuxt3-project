@@ -37,7 +37,11 @@ export default defineNuxtConfig({
       },
     },
   },
-
+  routeRules: {
+    "/cart": {ssr: false},
+    "/user/settings": {ssr: false},
+    "/Product/[id]": {ssr: false},
+  },
   // postcss: {
   //   plugins: {
   //     tailwindcss: {},

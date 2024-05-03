@@ -1,6 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import {useCartStore} from "~/stores/useCartStore";
-import {getUsername} from "../services/auth.service";
+// import {getUsername} from "../services/auth.service";
+// import {useClient} from "@nuxt/app";
+
+definePageMeta({
+  middleware: ["auth"],
+});
 
 const cartStore = useCartStore();
 
@@ -22,20 +27,15 @@ const subQty = cartStore.subQty;
 const addQty = cartStore.addQty;
 
 const handleRemoveAll = cartStore.removeAll;
-
-const hasToken = localStorage.getItem("token"); // Check for token existence
-const username = hasToken ? getUsername(localStorage.getItem("token")) : "";
 </script>
 
 <template>
   <h1 class="text-3xl font-bold">Cart</h1>
-  <div v-if="username" class="flex justify-between">
+  <div class="flex justify-between">
     <div class="bg-gray-200 min-w-[40%] p-5 rounded-xl flex flex-col gap-4">
-      <div>
-        <button @click="handleRemoveAll" class="top-2 right-2 w-8 h-8 rounded-full hover:bg-slate-300 grid place-items-center">
-          <Icon name="tabler:x" color="black" />
-        </button>
-      </div>
+      <button v-show="cart.length > 0" @click="handleRemoveAll" class="top-2 right-2 w-8 h-8 rounded-full hover:bg-slate-300 grid place-items-center">
+        <Icon name="tabler:x" color="black" />
+      </button>
       <div v-if="cart.length > 0" v-for="product in cartStore.cart" :key="product.id">
         <div class="flex justify-between">
           <NuxtLink :to="/product/ + product.id" class="flex gap-2">
@@ -80,11 +80,11 @@ const username = hasToken ? getUsername(localStorage.getItem("token")) : "";
       </div>
     </div>
   </div>
-  <div v-else>
+  <!-- <div v-else>
     <h1>You are not logged in</h1>
     <button @click="toggleModalLogin">Login</button>
     <div v-show="setLogin" class="absolute w-full h-[35rem] grid place-items-center">
       <ModalAuth :toggleModalLogin="toggleModalLogin" />
     </div>
-  </div>
+  </div> -->
 </template>

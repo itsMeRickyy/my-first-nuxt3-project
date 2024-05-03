@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {IconCaretDownFilled, IconUser, IconShoppingCart, IconMoon, IconSun, IconSearch, IconPawFilled} from "@tabler/icons-vue";
 </script>
 

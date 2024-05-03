@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   toggleModalLogin: {
     type: Function,
@@ -13,7 +13,8 @@ const toggleLogin = () => {
 </script>
 
 <template>
-  <div class="bg-gray-200 flex flex-col justify-between h-full w-[20rem] rounded-2xl relative overflow-hidden p-5">
+  <div class="bg-gray-200 flex flex-col justify-between h-[35rem] w-[20rem] rounded-2xl relative overflow-hidden p-5">
+    <h1>Login</h1>
     <button @click="toggleModalLogin" class="absolute top-2 right-2 w-8 h-8 rounded-full hover:bg-slate-300 grid place-items-center">
       <Icon name="tabler:x" color="black" />
     </button>

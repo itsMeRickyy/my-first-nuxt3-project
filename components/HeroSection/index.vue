@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {useProductsStore} from "~/stores/useProductsStore";
 import {useSwiper} from "swiper/vue";
 

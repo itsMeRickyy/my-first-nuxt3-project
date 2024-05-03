@@ -22,9 +22,9 @@ console.log(filteredProducts.value);
 </script>
 
 <template>
-  <div class="text-3xl font-bold">Search {{ searchTerm }}</div>
+  <!-- <div class="text-lg">Search {{ searchTerm }}</div> -->
   <div>
-    <div class="flex flex-wrap gap-4">
+    <div class="flex px-2 md:px-0 flex-wrap gap-4 justify-between mt-10">
       <div v-for="product in filteredProducts" :key="product.id">
         <ProductsCard :product="product" />
       </div>

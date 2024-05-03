@@ -42,16 +42,6 @@ export const useCartStore = defineStore("cart", () => {
       }
     }
   }
-  // function addToCart(product: Product, quantity: number) {
-  //   // cart.value.push({ ...product, quantity });
-  //   const itemInCart = cart.value.find(item => item.id === product.id);
-  //   if (itemInCart) {
-  //     itemInCart.quantity += quantity;
-  //   } else {
-  //     const updatedCart = updatecart({...product}, cart.value, quantity);
-  //     cart.value = updatedCart;
-  //   }
-  // }
 
   function addQty(id: number) {
     const updatedCart = cart.value.map(item => {
@@ -65,13 +55,23 @@ export const useCartStore = defineStore("cart", () => {
   }
 
   function subQty(id: number) {
-    const updatedCart = cart.value.map(item => {
-      if (item.id === id) {
-        return {...item, quantity: item.quantity - 1 < 1 ? 1 : item.quantity - 1};
-      } else {
+    const updatedCart = cart.value
+      .filter(item => {
+        if (item.id === id) {
+          if (item.quantity === 1) {
+            return false; // Remove the item from the cart
+          } else {
+            return true; // Keep the item in the cart
+          }
+        }
+        return true; // Keep other items in the cart
+      })
+      .map(item => {
+        if (item.id === id) {
+          return {...item, quantity: item.quantity - 1};
+        }
         return item;
-      }
-    });
+      });
     cart.value = updatedCart;
   }
 
