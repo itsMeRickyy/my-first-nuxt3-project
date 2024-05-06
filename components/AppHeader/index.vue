@@ -80,7 +80,7 @@ const setColorTheme = (theme: Theme) => {
           </div>
         </div>
       </div>
-      <div class="group relative">
+      <div class="group relative hidden md:block">
         <nuxtLink to="/favorites" class="text-xl bg-gray-200 hover:bg-gray-300 rounded-lg p-2 grid place-items-center">
           <Icon name="tabler:heart" color="black" />
         </nuxtLink>

@@ -19,7 +19,7 @@ const navigateToCategory: (newCategory: string) => void = newCategory => {
       <button @click="navigateToCategory(category)" v-for="category in categories" :key="category" class="p-2 text-sm whitespace-nowrap">{{ category }}</button>
     </div>
   </div>
-  <div class="flex px-2 md:px-0 flex-wrap gap-4 justify-between mt-10">
+  <div class="flex md:px-0 flex-wrap gap-4 justify-between mt-10">
     <div v-for="product in products" :key="product.id">
       <ProductsCard :product="product" />
     </div>

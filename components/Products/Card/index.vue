@@ -33,7 +33,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="w-44 h-60 md:w-48 md:h-72 flex flex-col rounded-xl shadow-md relative overflow-hidden items-center bg-white dark:bg-slate-700">
+  <div class="w-40 h-60 md:w-48 md:h-72 flex flex-col rounded-xl shadow-md relative overflow-hidden items-center bg-white dark:bg-slate-700">
     <div class="absolute top-2 right-2 md:top-5 md:right-5 z-10 bg-gray-200 rounded-full grid place-items-center p-2 dark:text-black">
       <icon v-if="isFavorite(props.product)" @click="handleAddToFavorites(props.product)" name="tabler:heart-filled" :color="isFavorite(props.product) ? '#d8556f' : 'black'" class="h-4 w-4" />
       <icon v-else @click="handleAddToFavorites(product)" name="tabler:heart" class="h-4 w-4" />
