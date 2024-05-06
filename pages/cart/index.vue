@@ -31,8 +31,8 @@ const handleRemoveAll = cartStore.removeAll;
 
 <template>
   <h1 class="text-3xl font-bold">Cart</h1>
-  <div class="flex justify-between">
-    <div class="bg-gray-200 min-w-[40%] p-5 rounded-xl flex flex-col gap-4">
+  <div class="flex flex-col md:flex-row justify-between gap-5">
+    <div class="bg-gray-200 dark:bg-slate-700 text-slate-200 min-w-[40%] w-full p-5 rounded-xl flex flex-col gap-4">
       <button v-show="cart.length > 0" @click="handleRemoveAll" class="top-2 right-2 w-8 h-8 rounded-full hover:bg-slate-300 grid place-items-center">
         <Icon name="tabler:x" color="black" />
       </button>
@@ -57,7 +57,7 @@ const handleRemoveAll = cartStore.removeAll;
         </div>
       </div>
       <div v-else class="flex flex-col gap-5 h-full w-full justify-center items-center">
-        <div>
+        <div class="text-slate-800 dark:text-slate-200">
           <h1 class="text-xl">Your cart is empty</h1>
           <p>Want something? Add it to your cart now!</p>
         </div>
@@ -65,10 +65,11 @@ const handleRemoveAll = cartStore.removeAll;
         <NuxtLink to="/" class="bg-blue-700 text-white p-3 rounded-lg">Start Shopping</NuxtLink>
       </div>
     </div>
-    <div class="bg-gray-200 w-[40%] rounded-xl p-5 flex flex-col justify-between">
+    <!-- total -->
+    <div class="bg-gray-200 dark:bg-slate-700 w-full md:w-[45%] absolute left-0 right-2 bottom-10 md:relative rounded-xl p-5 flex flex-col justify-between">
       <div>
         <div class="border-b py-2 mb-2 border-gray-400">
-          <h1 class="text-xl font-bold text-gray-700">Shopping summary</h1>
+          <h1 class="md:text-xl font-bold text-gray-700 dark:text-slate-200">Shopping summary</h1>
         </div>
         <div class="border-b py-2 mb-2 border-gray-400">
           <h1 class="text-lg">Total ${{ totalPriceComputed.toFixed(1) }}</h1>
@@ -80,11 +81,4 @@ const handleRemoveAll = cartStore.removeAll;
       </div>
     </div>
   </div>
-  <!-- <div v-else>
-    <h1>You are not logged in</h1>
-    <button @click="toggleModalLogin">Login</button>
-    <div v-show="setLogin" class="absolute w-full h-[35rem] grid place-items-center">
-      <ModalAuth :toggleModalLogin="toggleModalLogin" />
-    </div>
-  </div> -->
 </template>

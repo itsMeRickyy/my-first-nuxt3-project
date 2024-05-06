@@ -18,10 +18,12 @@
     "nuxt-icons": "^3.2.1",
     "nuxt-swiper": "^1.2.2",
     "pinia": "^2.1.7",
+    "vite": "^5.2.11",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "@nuxtjs/color-mode": "^3.4.1",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.11.4",
     "nuxt-icon": "^0.6.10"

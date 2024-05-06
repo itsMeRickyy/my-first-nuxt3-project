@@ -2,9 +2,22 @@
 import {resolve} from "path";
 export default defineNuxtConfig({
   devtools: {enabled: true},
-  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-icon", "@vueuse/motion/nuxt", "nuxt-swiper"],
+  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-icon", "@vueuse/motion/nuxt", "nuxt-swiper", "@nuxtjs/color-mode"],
+  colorMode: {
+    classSuffix: "", // Optional, for custom class naming (empty string for Tailwind's defaults)
+    preference: "system", // Use system preference by default
+    fallback: "light", // Fallback to light mode if preference is unavailable
+  },
   alias: {
     "@": resolve(__dirname, "./"),
+  },
+  tailwindcss: {
+    cssPath: "~/assets/css/tailwind.css",
+    configPath: "tailwind.config.js",
+    exposeConfig: false,
+    config: {},
+    injectPosition: 0,
+    viewer: true,
   },
   css: ["~/assets/css/main.css"],
   app: {
@@ -41,7 +54,9 @@ export default defineNuxtConfig({
     "/cart": {ssr: false},
     "/user/settings": {ssr: false},
     "/Product/[id]": {ssr: false},
+    "/favorites": {ssr: false},
   },
+
   // postcss: {
   //   plugins: {
   //     tailwindcss: {},

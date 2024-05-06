@@ -8,7 +8,7 @@ const authStore = useAuth();
 const username = computed(() => authStore.username);
 const isLoggedIn = computed(() => authStore.isLoggedIn);
 
-const setLogin = ref(false);
+const setLogin = ref(true);
 
 const toggleModalLogin = () => {
   setLogin.value = !setLogin.value;
@@ -17,7 +17,7 @@ const toggleModalLogin = () => {
 const handleLogout = async () => {
   try {
     await authStore.logout(); // Call the logout action from the store
-    // window.location.reload();
+    window.location.reload();
   } catch (error) {
     console.error("Logout error:", error);
     // Handle logout error (optional: display error message to user)
@@ -90,9 +90,9 @@ const handleLogout = async () => {
         </div>
       </div>
     </div>
-    <div v-else class="absolute flex-col gap-5 h-[40rem] w-full justify-center items-center bg-green-200">
-      <button @click="toggleModalLogin">Login</button>
-      <h1 class="text-3xl font-bold text-gray-800">You are not logged in</h1>
+    <div v-else class="flex-col gap-5 h-[40rem] w-full justify-center items-center mt-28 my-10">
+      <!-- <button @click="toggleModalLogin">Login</button> -->
+      <!-- <h1 class="text-3xl font-bold text-gray-800">You are not logged in</h1> -->
       <div v-show="setLogin" class="absolute w-full h-[35rem] grid place-items-center">
         <ModalAuth :toggleModalLogin="toggleModalLogin" />
       </div>

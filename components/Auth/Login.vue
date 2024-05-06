@@ -34,8 +34,8 @@ const handleLogin = async event => {
 
   try {
     await authStore.login(data);
-    // window.location.reload();
-    router.push("/");
+    window.location.reload();
+    // router.push("/");
   } catch (error) {
     // Handle login error
   }

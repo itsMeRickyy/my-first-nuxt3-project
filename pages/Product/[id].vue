@@ -87,6 +87,14 @@ const handleAddToCart = (product: Product) => {
     cartStore.addToCart(product, qty.value);
     toast.value = true;
   }
+
+  const closeToast = () => {
+    setTimeout(() => {
+      toast.value = false;
+    }, 3000);
+  };
+
+  closeToast();
 };
 
 const handleAddToFavorites = (product: Product) => {
@@ -115,10 +123,10 @@ const toggleModalLogin = () => {
 
 <template>
   <div v-if="loginStatus" class="bg-gray-600 bg-opacity-50 right-0 left-0 min-h-screen grid place-items-center absolute">
-    <div>
-      <ModalAuth :toggleModalLogin="toggleModalLogin" />
-      <!-- <h1>You need to login first</h1>
-      <NuxtLink to="/user/settings">Login</NuxtLink> -->
+    <div class="bg-white p-10 rounded-2xl text-center flex flex-col gap-4">
+      <!-- <ModalAuth :toggleModalLogin="toggleModalLogin" /> -->
+      <h1 class="text-xl text-gray-800">You need to login first</h1>
+      <NuxtLink to="/user/settings" class="text-xl bg-gray-200 hover:bg-gray-300 rounded-lg px-5 py-2">Login</NuxtLink>
     </div>
   </div>
   <div v-if="product" class="flex flex-col items-center md:items-start md:flex-row pt-10 mb-60 md:mb-0">
@@ -192,6 +200,7 @@ const toggleModalLogin = () => {
         </div>
         <div class="flex gap-5">
           <button @click="handleAddToCart(product)" class="w-full bg-blue-700 text-white p-3 rounded-lg">+ Add to Cart</button>
+          <!-- <button v-else @click="handleAddToCart(product)" class="w-full bg-red-700 text-white p-3 rounded-lg">+ Add to Cart</button> -->
           <button class="w-full border-2 border-blue-700 text-blue-700 p-3 rounded-lg">Buy Now</button>
         </div>
       </div>

@@ -13,9 +13,9 @@ const navigateToCategory: (newCategory: string) => void = newCategory => {
 </script>
 
 <template>
-  <div class="w-full rounded-xl shadow-lg p-5">
+  <div class="w-full rounded-xl shadow-lg p-5 dark:bg-slate-700">
     <!-- <h1 class="font-bold text-xl my-5">Category</h1> -->
-    <div class="flex gap-5">
+    <div class="flex gap-5 flex-wrap">
       <button @click="navigateToCategory(category)" v-for="category in categories" :key="category" class="p-2 text-sm whitespace-nowrap">{{ category }}</button>
     </div>
   </div>
